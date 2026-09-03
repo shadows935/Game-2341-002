@@ -1,0 +1,13 @@
+Pseudocode practice #1: Paycheck
+Hours variable
+Payrate variable
+Totalhours variable
+
+Get user input for pay rate
+
+Loop 7 times
+Get user input for hourly pay for the day
+Get user input for hours worked for the day
+
+
+
