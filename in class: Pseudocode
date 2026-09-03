@@ -1,16 +1,65 @@
 IN CLASS PRACTICE #1: Convert user text to caps, print out the result, and make sure that it prevents the user from entering a number
 
+Initialize string input
+Initialize String output
+
+Get user input text to be capitalized
+Convert text to caps
+Make any input deny numbers being added to text
+
+Display the text
 
 IN CLASS PRACTICE #2: Have the user input two numbers, add them together, and print the result, and make sure that it prevents the user from entering letters
+
+Ask the user to input number1
+ input number1
+Ask the user to input number2
+input number2
+If a letter is added, make it say invaild
+
+Take number 1 and number 2 and add them together, then display the total
 
 
 
 IN CLASS PRACTICE #3: Get an unknown amount of numbers from the user and add them together, and print out the result.
 
+Ask the user to input a number
+loop code
+Display all numbers, then add them together
+display total
 
 
 IN CLASS PRACTICE #4: Have the user define a maximum whole number, print out a random number between 0 and their number. Allow the user to play again or quit
 
+Ask the user to enter a number 
+Get maximum
 
+Generate a number between zero and the maximum
+Display said number
+
+Ask the user if they want to play again (yes or no)
+get answer
 
 IN CLASS PRACTICE #5: Get a random number. If the number is even, print “RIGHT”; if it’s odd, print “LEFT”. Do this ten times. Print out how many times it was “LEFT” and how many times it was “RIGHT”.
+
+left=Odd
+Right=Even
+
+Repeat
+Generate a random number
+Set up a number range from 1-9999
+So zero is excluded from the random number generator
+
+If the number is even, display Right
+Add to the right counter
+
+If the number is odd, display Left
+Add to the left counter
+
+end repeat
+
+Display two counters: left and right
+Each has zero at the beginning
+when each even or odd number is displayed, raise the said zero in the designated area
+left=0 right=0
+
