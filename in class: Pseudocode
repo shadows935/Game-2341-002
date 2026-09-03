@@ -1,0 +1,16 @@
+IN CLASS PRACTICE #1: Convert user text to caps, print out the result, and make sure that it prevents the user from entering a number
+
+
+IN CLASS PRACTICE #2: Have the user input two numbers, add them together, and print the result, and make sure that it prevents the user from entering letters
+
+
+
+IN CLASS PRACTICE #3: Get an unknown amount of numbers from the user and add them together, and print out the result.
+
+
+
+IN CLASS PRACTICE #4: Have the user define a maximum whole number, print out a random number between 0 and their number. Allow the user to play again or quit
+
+
+
+IN CLASS PRACTICE #5: Get a random number. If the number is even, print “RIGHT”; if it’s odd, print “LEFT”. Do this ten times. Print out how many times it was “LEFT” and how many times it was “RIGHT”.
