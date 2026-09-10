@@ -1,0 +1,23 @@
+HW: Guessing game
+
+repeat
+Generate a random number between 1 and 100
+The user gets 7 attempts
+
+Set user guessed correctly to false
+Have a counter for attempts starting at seven
+Ask the user to guess the number
+Get the user's guess
+
+If the number is guessed wrong, subtract 1 from the counter
+If the guessed number is higher than the number chosen, Print hint "Too high" 
+If the guessed number is lower than the number chosen, print the hint "Too low" 
+
+
+If the user guesses correctly, print "You win!!"
+Set user guessed correctly to true
+
+If the user runs out of attempts, print "You lose"
+
+
+
