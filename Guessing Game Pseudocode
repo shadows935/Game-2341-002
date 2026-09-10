@@ -10,14 +10,23 @@ Ask the user to guess the number
 Get the user's guess
 
 If the number is guessed wrong, subtract 1 from the counter
-If the guessed number is higher than the number chosen, Print hint "Too high" 
-If the guessed number is lower than the number chosen, print the hint "Too low" 
-
+  If the guessed number is higher than the number chosen, print the hint "Too high" 
+  else the guessed number is lower than the number chosen, print the hint "Too low" 
+  else, if the guessed number is closer to the number, print "Closer"
+end if
 
 If the user guesses correctly, print "You win!!"
 Set user guessed correctly to true
 
 If the user runs out of attempts, print "You lose"
+
+Print asking the user, "Do you want to play again?"
+Prompt "Y/N"
+Get the user's choice
+
+until users choice is "N"
+
+Print "thanks for playing" if N is selected
 
 
 
