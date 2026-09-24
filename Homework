@@ -1,0 +1,77 @@
+Homework: Guessing Game Code
+
+repeat
+    local number = math.random(1, 100)
+
+    local attempts = 7
+
+    local guessedCorrectly = false
+
+    print("Welcome to the guessing game! You have " .. attempts .. " attempts to guess the number between 1 and 100.")
+    print("I have selected a random number. Can you guess what it is?")
+
+  while attempts > 0 and guessedCorrectly == false do
+
+        print("")
+        print("You have " .. attempts .. " attempts remaining.")
+        print("Enter your guess:")
+
+        -- Get the player's input
+        local input = io.read()
+
+        -- Convert the input into a number
+        local guess = tonumber(input)
+
+        -- Error handling if the player enters a letter
+        if guess == nil then
+            print("Invalid input! Please enter a number.")
+
+        -- Check if the number is outside the allowed range
+        elseif guess < 1 or guess > 100 then
+            print("Please enter a number between 1 and 100.")
+
+        else
+            -- Check if the player guessed correctly
+            if guess == number then
+                print("You win!!")
+                print("You guessed the number!")
+                guessedCorrectly = true
+
+            -- Check if the guess is too high
+            elseif guess > number then
+                print("Too high!")
+                attempts = attempts - 1
+
+            -- Check if the guess is too low
+            elseif guess < number then
+                print("Too low!")
+                attempts = attempts - 1
+            end
+        end
+    end
+
+    -- If the player runs out of attempts
+    if guessedCorrectly == false and attempts == 0 then
+        print("")
+        print("You lose!")
+        print("The number was " .. number .. ".")
+    end
+
+    -- Ask the player if they want to play again
+    print("")
+    print("Do you want to play again? (Y/N)")
+    local input = io.read()
+    local choice = input and input:upper() or ""
+
+    -- Keep asking if the player enters something other than Y or N
+    while choice ~= "Y" and choice ~= "N" do
+        print("Invalid choice. Please enter Y or N.")
+        input = io.read()
+        choice = input and input:upper() or ""
+    end
+
+until choice == "N"
+
+-- End of the game
+print("")
+print("Thanks for playing!")
