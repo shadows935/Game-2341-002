@@ -1,4 +1,7 @@
-Homework: Guessing Game Code
+--[[Carlos Flores
+    10/12/2023
+    Guessing Game where the code picks a number between 1 and 100 and the player has to guess the number with only 7 attempts to get it right.
+    If they don't get it right its game over and they lose]]
 
 repeat
     local number = math.random(1, 100)
@@ -7,8 +10,8 @@ repeat
 
     local guessedCorrectly = false
 
-    print("Welcome to the guessing game! You have " .. attempts .. " attempts to guess the number between 1 and 100.")
-    print("I have selected a random number. Can you guess what it is?")
+    print("Welcome to my guessing game! You have " .. attempts .. " attempts to guess my number between 1 and 100.")
+    print("I have selected a random number of my choosing. Can you guess what it is? :) ")
 
   while attempts > 0 and guessedCorrectly == false do
 
@@ -28,13 +31,14 @@ repeat
 
         -- Check if the number is outside the allowed range
         elseif guess < 1 or guess > 100 then
-            print("Please enter a number between 1 and 100.")
+            print("enter a number between 1 and 100.")
 
         else
             -- Check if the player guessed correctly
             if guess == number then
                 print("You win!!")
-                print("You guessed the number!")
+                print("You guessed the number!!!")
+                print("The number was " .. number .. ".")
                 guessedCorrectly = true
 
             -- Check if the guess is too high
@@ -57,13 +61,13 @@ repeat
         print("The number was " .. number .. ".")
     end
 
-    -- Ask the player if they want to play again
+    -- Asks player if they want to play the game again
     print("")
     print("Do you want to play again? (Y/N)")
     local input = io.read()
     local choice = input and input:upper() or ""
 
-    -- Keep asking if the player enters something other than Y or N
+    -- Keeps asking player for either Y or N if they enter any thing else
     while choice ~= "Y" and choice ~= "N" do
         print("Invalid choice. Please enter Y or N.")
         input = io.read()
@@ -72,6 +76,6 @@ repeat
 
 until choice == "N"
 
--- End of the game
+-- End of game
 print("")
-print("Thanks for playing!")
+print("Thanks for playing the Guessing Game! Return soon!!")
