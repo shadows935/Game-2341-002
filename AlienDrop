@@ -1,4 +1,5 @@
 Using the chicken drop code, I changed the PNG to an alien and added a power-up that spawns and makes the aliens smaller.
+The PNGs are alien.png and bg.png
 
 function love.load()
     alienFace = love.graphics.newImage("alien.png")
