@@ -1,0 +1,175 @@
+Using the chicken drop code, I changed the PNG to an alien and added a power-up that spawns and makes the aliens smaller.
+
+function love.load()
+    alienFace = love.graphics.newImage("alien.png")
+    backgroundImage = love.graphics.newImage("bg.png")
+
+    math.randomseed(os.time())
+    math.random()
+    math.random()
+    math.random()
+
+    -- Set up the aliens
+    startx = {
+        math.random(0, love.graphics.getWidth() - alienFace:getWidth()),
+        math.random(0, love.graphics.getWidth() - alienFace:getWidth()),
+        math.random(0, love.graphics.getWidth() - alienFace:getWidth()),
+        math.random(0, love.graphics.getWidth() - alienFace:getWidth()),
+        math.random(0, love.graphics.getWidth() - alienFace:getWidth())
+    }
+
+    starty = {
+        -math.random(alienFace:getHeight(), alienFace:getHeight() * 2),
+        -math.random(alienFace:getHeight(), alienFace:getHeight() * 2),
+        -math.random(alienFace:getHeight(), alienFace:getHeight() * 2),
+        -math.random(alienFace:getHeight(), alienFace:getHeight() * 2),
+        -math.random(alienFace:getHeight(), alienFace:getHeight() * 2)
+    }
+
+    -- Power-up settings
+    powerupSize = 30
+    powerupActive = true
+    powerupX = math.random(
+        powerupSize,
+        love.graphics.getWidth() - powerupSize
+    )
+    powerupY = math.random(
+        powerupSize,
+        love.graphics.getHeight() - powerupSize
+    )
+
+    -- alien size settings
+    alienScale = 1
+    powerupTimer = 0
+    powerupRespawnTimer = 0
+end
+
+-------------------------------------------------
+-- MOUSE PRESS
+-- 1 = left, 2 = right, 3 = middle wheel
+-------------------------------------------------
+function love.mousepressed(x, y, button, istouch)
+    if button == 1 then
+
+        -- Check if the player clicked the power-up
+        local distanceX = x - powerupX
+        local distanceY = y - powerupY
+        local distance = math.sqrt(distanceX^2 + distanceY^2)
+
+        if powerupActive and distance <= powerupSize then
+            -- Make all aliens smaller
+            alienScale = 0.5
+            powerupTimer = 5
+            powerupActive = false
+            powerupRespawnTimer = 9
+        end
+
+        -- Check if the player clicked a alien
+        for i, v in ipairs(startx) do
+            if x >= startx[i]
+                and x <= startx[i] + alienFace:getWidth() * alienScale
+                and y >= starty[i]
+                and y <= starty[i] + alienFace:getHeight() * alienScale then
+
+                -- Send the alien back to the top
+                starty[i] = -math.random(
+                    alienFace:getHeight(),
+                    alienFace:getHeight() * 2
+                )
+            end
+        end
+    end
+end
+
+-------------------------------------------------
+-- UPDATE
+-------------------------------------------------
+function love.update(dt)
+
+    -- Count down the size power-up duration
+    if powerupTimer > 0 then
+        powerupTimer = powerupTimer - dt
+
+        if powerupTimer <= 0 then
+            -- Return aliens to normal size
+            alienScale = 1
+        end
+    end
+
+    -- Respawn the power-up after its delay
+    if not powerupActive and powerupRespawnTimer > 0 then
+        powerupRespawnTimer = powerupRespawnTimer - dt
+
+        if powerupRespawnTimer <= 0 then
+            powerupX = math.random(
+                powerupSize,
+                love.graphics.getWidth() - powerupSize
+            )
+
+            powerupY = math.random(
+                powerupSize,
+                love.graphics.getHeight() - powerupSize
+            )
+
+            powerupActive = true
+        end
+    end
+
+    -- Move the aliens
+    for i, v in ipairs(starty) do
+
+        -- End the game if a alien hits the bottom
+        if starty[i] + alienFace:getHeight() * alienScale
+            >= love.graphics.getHeight() then
+            love.event.quit()
+        end
+
+        -- aliens fall down
+        starty[i] = starty[i] + 80 * dt
+    end
+end
+
+-------------------------------------------------
+-- DRAW
+-------------------------------------------------
+function love.draw()
+
+    -- Draw the background
+    love.graphics.draw(backgroundImage, 0, 0)
+
+    -- Draw each alien using its current size
+    for i, v in ipairs(startx) do
+        love.graphics.draw(
+            alienFace,
+            startx[i],
+            starty[i],
+            0,
+            alienScale,
+            alienScale
+        )
+    end
+
+    -- Drawing the power-up
+    if powerupActive then
+        -- Green circle
+        love.graphics.setColor(0, 1, 0)
+        love.graphics.circle(
+            "fill",
+            powerupX,
+            powerupY,
+            powerupSize
+        )
+
+        -- White outline
+        love.graphics.setColor(1, 1, 1)
+        love.graphics.circle(
+            "line",
+            powerupX,
+            powerupY,
+            powerupSize
+        )
+
+        -- Restore normal drawing color
+        love.graphics.setColor(1, 1, 1)
+    end
+end
