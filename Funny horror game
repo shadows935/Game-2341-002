@@ -1,0 +1,149 @@
+# SPOOKY HOUSE - a tiny text adventure
+# You are shown a number that will be your choice to pick and enter the spooky house text adventure.
+
+# Dictionary to show each ending's title, story, and funny comment. each ending is used for which ending the player gets based on their choices in game
+ENDINGS = {
+    "home": (
+        "ENDING 1 of 5: The Chicken",
+        "You sprint all the way home, How you ran that fast and far I will never know but you\n"
+        "go and eat your cereal, never to go near the house again",
+        "The house wasn't even scary. and yet you ran...you can't see my face but im looking very disappointed\n"
+        "You get a chicken for your chickening out. word of warning, its evil and will stare into your soul. it will also steal your cereal."
+    ),
+    "fell": (
+        "ENDING 2 of 5: The Fall",
+        "It is pitch black in the cellar. You take one step, then another,\n"
+        "then....you step forward and miss the next step. Something in the dark whispers:\n"
+        "'Should have grabbed the flashlight.'",
+        "Even the ghosts are laughing at you. One of them is\n"
+        "filming it for ghosttube."
+    ),
+    "treasure": (
+        "ENDING 3 of 5: The Treasure Hunter",
+        "Your flashlight reveals a creepy chest full of gold! A skeleton\n"
+        "sitting next to it slowly slides a sign across the floor:\n"
+        "'Finders keepers. Please take me with you.'",
+        "You're rich now, but you have a skeleton roommate.\n"
+        "His name is Steve. he keeps telling you about a magical world made of blocks. called minercraft or something."
+    ),
+    "ghost": (
+        "ENDING 4 of 5: The Ghost Buddy",
+        "You open the wardrobe and a ghost screams. You scream. He screams\n"
+        "louder. Then he admits he has been alone for 200 years and just\n"
+        "wanted someone to talk to. You talk until sunrise.",
+        "He's a great listener, but he keeps floating through\n"
+        "your fridge and eating your leftovers. wanna know whats his name? hmmmmm  okay okay ready? its not casper"
+    ),
+    "window": (
+        "ENDING 5 of 5: The Daredevil",
+        "You leap out the window screaming: 'AND I'M FREEEEEE!'\n"
+        "...free falling...\n"
+        "...still free falling...\n"
+        "THUMP. You land in a pool? wait.....(Checks notes).",
+        "what pool did you just land in?! The house doesn't even have a pool\n"
+        "I guess good job falling, you get a gold star for that."
+    ),
+}
+
+# a list for the player to store items when picked up in game, sadly there is only one item a flashlight
+inventory = []
+
+
+def ask(options):
+    """Show a numbered list of options and return the number the player picks."""
+    print()
+    for number, text in enumerate(options, start=1):
+        print("%d) %s" % (number, text))
+    while True:  # made to keep asking until the answer is vaild, if it is not vaild then it will continue to loop
+        answer = input("> ").strip()
+        if answer.isdigit() and 1 <= int(answer) <= len(options):
+            return int(answer)
+        print("Please type a number from 1 to %d." % len(options))
+
+
+def end(key):
+    """Print the title, story, and funny comment for the chosen ending."""
+    title, story, joke = ENDINGS[key]  # this unpacks the the dictonary into the three variables so when it prints the statment it will print title, the story, and the joke for last
+    print("\n*** " + title + " ***")
+    print(story)
+    print("\n" + joke)
+
+
+def start():
+    """Front yard: go inside or don't up to you."""
+    print("You stand in front of a creepy old house. A crooked sign reads:\n"
+          "'Welcome! Please ignore the screaming.'")
+    choice = ask(["Go inside", "Run home"])
+    if choice == 1:
+        hall()
+    else:
+        end("home")
+
+
+def hall():
+    """Main hall: connects to every other room."""
+    print("\nYou are in the dusty hall. A portrait on the wall winks at you.\n"
+          "You decide not to think about that. Doors lead everywhere.")
+    choice = ask(["Go to the kitchen", "Open the cellar door", "Climb the stairs"])
+    if choice == 1:
+        kitchen()
+    elif choice == 2:
+        cellar()
+    else:
+        bedroom()
+
+
+def kitchen():
+    """Kitchen: the flashlight is here."""
+    print("\nThe kitchen smells like soup from the year 1823. A flashlight\n"
+          "sits on the counter, next to a note: 'Do not eat the soup.'")
+    choice = ask(["Take the flashlight", "Leave it"])
+    if choice == 1 and "flashlight" not in inventory:
+        inventory.append("flashlight")  # adds the flashlight to said inventory list so that you can use it later in the cellar
+        print("You took the flashlight. The soup bubbles angrily.")
+    hall()  # takes you back to the hall after your choice, no matter what you picked
+
+
+def cellar():
+    """Cellar: the ending depends on whether you have the flashlight."""
+    print("\nYou creep down into the cellar. The stairs creak. Something\n"
+          "clears its throat in the dark...")
+    if "flashlight" in inventory:
+        end("treasure")
+    else:
+        end("fell")
+
+
+def bedroom():
+    """Upstairs bedroom: two risky choices."""
+    print("\nIn the bedroom, the wardrobe creaks and something inside it\n"
+          "sneezes. The window is wide open and the night air is cold.")
+    choice = ask(["Open the wardrobe", "Jump out the window"])
+    if choice == 1:
+        end("ghost")
+    else:
+        end("window")
+
+
+def play_again():
+    """Asks the player if they want to retry. Return True for yes, False for no."""
+    while True:  # will keep asking until the answer is vaild if not will keep looping till you pick y/n
+        answer = input("\nPlay again? (y/n) > ").strip().lower()
+        if answer in ("y", "yes"):
+            return True
+        if answer in ("n", "no"):
+            return False
+        print("Please type y or n.")
+
+
+def main():
+    """Main loop: play, then offer a retry after every ending."""
+    print("=== SPOOKY HOUSE ===")
+    playing = True
+    while playing:
+        inventory.clear()  # emptys inventory for the new game
+        start()
+        playing = play_again()
+    print("Thanks for playing!")
+
+main()
