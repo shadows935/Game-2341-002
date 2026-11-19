@@ -129,7 +129,7 @@ def bedroom():
 
 
 def play_again():
-    """Asks the player if they want to retry. Return True for yes, False for no."""
+    """Ask the player if they want to retry. Return True for yes, False for no."""
     while True:  # will keep asking until the answer is vaild if not will keep looping till you pick y/n
         answer = input("\nPlay again? (y/n) > ").strip().lower()
         if answer in ("y", "yes"):
@@ -139,14 +139,10 @@ def play_again():
         print("Please type y or n.")
 
 
-def main():
-    """Main loop: play, then offer a retry after every ending."""
-    print("=== SPOOKY HOUSE ===")
-    playing = True
-    while playing:
-        inventory.clear()  # emptys inventory for the new game
-        start()
-        playing = play_again()
-    print("Thanks for playing!")
-
-main()
+print("=== SPOOKY HOUSE ===")
+playing = True
+while playing:
+    inventory.clear()  # emptys inventory for the new game
+    start()
+    playing = play_again()
+print("Thanks for playing!")
